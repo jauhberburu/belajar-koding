@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1731580818 source:c:\users\thinkpad think\desktop\belajar koding\hello_c.c
+	<stdio.h>
+
+1731580879 source:c:\users\thinkpad think\desktop\belajar koding\input_dan_output.cpp
+	<iostream>
+
