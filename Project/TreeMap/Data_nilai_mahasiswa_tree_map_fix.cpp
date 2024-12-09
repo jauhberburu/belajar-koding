@@ -7,31 +7,37 @@ class Mahasiswa {
 public:
     std::string idMahasiswa;       // ID Mahasiswa
     std::string namaMahasiswa;     // Nama Mahasiswa
-    std::string detailKursus;      // Detail Kursus
     double nilaiAkhir;             // Nilai Akhir
 
     // Konstruktor
-    Mahasiswa(const std::string &id, const std::string &nama, const std::string &kursus, double nilai)
-        : idMahasiswa(id), namaMahasiswa(nama), detailKursus(kursus), nilaiAkhir(nilai) {}
+    Mahasiswa(const std::string &id, const std::string &nama, double nilai)
+        : idMahasiswa(id), namaMahasiswa(nama), nilaiAkhir(nilai) {}
 
     // Fungsi untuk menampilkan data mahasiswa
     void tampilkan() const {
         std::cout << "ID Mahasiswa: " << idMahasiswa << "\nNama Mahasiswa: " << namaMahasiswa
-                  << "\nDetail Kursus: " << detailKursus << "\nNilai Akhir: " << nilaiAkhir << "\n";
+                  << "\nNilai Akhir: " << nilaiAkhir << "\n";
     }
 };
 
 int main() {
     std::map<std::string, Mahasiswa> mahasiswa;
     int jumlahMahasiswa;
+    std::string detailKursus;
+
+    // Meminta detail kursus sekali
+    std::cout << "Masukkan Detail Kursus: ";
+    std::cin >> detailKursus;
 
     // Meminta jumlah mahasiswa yang akan diinput
     std::cout << "Masukkan jumlah mahasiswa: ";
     std::cin >> jumlahMahasiswa;
 
+    double totalNilai = 0;
+
     // Loop untuk mengumpulkan data mahasiswa
     for (int i = 0; i < jumlahMahasiswa; ++i) {
-        std::string idMahasiswa, namaMahasiswa, detailKursus;
+        std::string idMahasiswa, namaMahasiswa;
         int nilaiTugas, nilaiUjian;
 
         // Mengumpulkan data mahasiswa
@@ -40,9 +46,6 @@ int main() {
 
         std::cout << "Masukkan Nama Mahasiswa: ";
         std::cin >> namaMahasiswa;
-
-        std::cout << "Masukkan Detail Kursus: ";
-        std::cin >> detailKursus;
 
         std::cout << "Masukkan Nilai Tugas: ";
         std::cin >> nilaiTugas;
@@ -61,12 +64,24 @@ int main() {
         }
 
         // Menyimpan data mahasiswa ke dalam map
-        mahasiswa.emplace(idMahasiswa, Mahasiswa(idMahasiswa, namaMahasiswa, detailKursus, nilaiAkhir));
+        mahasiswa.emplace(idMahasiswa, Mahasiswa(idMahasiswa, namaMahasiswa, nilaiAkhir));
+        totalNilai += nilaiAkhir;
     }
 
     // Menampilkan data semua mahasiswa
     for (const auto &entry : mahasiswa) {
         entry.second.tampilkan();
+    }
+
+    // Menghitung rata-rata nilai
+    double rataRataNilai = totalNilai / jumlahMahasiswa;
+
+    // Menampilkan hasil
+    std::cout << "Rata-rata Nilai: " << rataRataNilai << "\n";
+    if (rataRataNilai > 70) {
+        std::cout << "Semua mahasiswa lulus.\n";
+    } else {
+        std::cout << "Semua siswa gagal mengikuti kelas.\n";
     }
 
     return 0;
